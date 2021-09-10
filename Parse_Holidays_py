@@ -20,11 +20,3 @@ def parse_holidays():
     d['Date'], d['calendarId'], d['isManual'], d['displayName'], d['name'], d['dayType']  = [pd.to_datetime(d['Date']+" "+year),
     small_name, "false", d['Holiday Name'], d['Holiday Name'], 'Holiday']
     return d[['Date','calendarId', 'dayType', 'name', 'displayName', 'isManual']]
-from pytictoc import TicToc
-t=TicToc()
-t.tic()
-parse_holidays()
-t.toc()
-
-url ="https://pogoda.turtella.ru/ukraine/dnepropetrovsk/archive"
-pd.read_html(url)
