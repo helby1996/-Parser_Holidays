@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Jul 25 16:34:12 2021
+
+@author: admin
+"""
+
+import requests
+import pandas as pd
+def parse_holidays():
+    name = str.lower("Ukraine")+ str("/")
+    year = str("2021")
+    url_name = str("https://www.officeholidays.com/countries/")
+    small_name = str.upper("UK")
+    url = url_name + name + year
+    html = requests.get(url).text
+    d=pd.concat(pd.read_html(html))
+    print(d.columns)
+    d['Date'], d['calendarId'], d['isManual'], d['displayName'], d['name'], d['dayType']  = [pd.to_datetime(d['Date']+" "+year),
+    small_name, "false", d['Holiday Name'], d['Holiday Name'], 'Holiday']
+    return d[['Date','calendarId', 'dayType', 'name', 'displayName', 'isManual']]
+from pytictoc import TicToc
+t=TicToc()
+t.tic()
+parse_holidays()
+t.toc()
+
+url ="https://pogoda.turtella.ru/ukraine/dnepropetrovsk/archive"
+pd.read_html(url)
